@@ -22,15 +22,16 @@ public class VeiculoController {
     }
 
 
-    @GetMapping()
+    @GetMapping("/todos")
     public ResponseEntity<Object> listarTodosVeiculos(){
         List<VeiculoDTO> veiculosDTO = veiculoService.listarTodosVeiculos();
         return ResponseEntity.ok(veiculosDTO);
     }
 
-    @GetMapping("/ativos")
-    public ResponseEntity<Object> listarVeiculosAtivos(){
-        List<VeiculoDTO> veiculosDTO = veiculoService.listarVeiculosAtivos();
+    @GetMapping()
+    public ResponseEntity<List<VeiculoDTO>> listarVeiculosAtivos(@RequestParam(defaultValue = "0") int pagina,
+                                                                 @RequestParam(defaultValue = "5") int itens){
+        List<VeiculoDTO> veiculosDTO = veiculoService.listarVeiculosAtivos(pagina, itens);
         return ResponseEntity.ok(veiculosDTO);
     }
 
@@ -73,6 +74,6 @@ public class VeiculoController {
     @DeleteMapping("/{id}")
     public  ResponseEntity<Object> deletarVeiculo(@PathVariable Integer id){
         veiculoService.deletarVeiculo(id);
-        return new ResponseEntity<>("Veículo atualizado com sucesso.", HttpStatus.OK);
+        return new ResponseEntity<>("Veículo deletado com sucesso.", HttpStatus.OK);
     }
 }

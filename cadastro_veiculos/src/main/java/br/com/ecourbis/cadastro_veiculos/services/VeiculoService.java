@@ -3,14 +3,17 @@ package br.com.ecourbis.cadastro_veiculos.services;
 import br.com.ecourbis.cadastro_veiculos.dtos.VeiculoDTO;
 import br.com.ecourbis.cadastro_veiculos.enums.TipoStatus;
 import br.com.ecourbis.cadastro_veiculos.enums.TipoUnidade;
+import br.com.ecourbis.cadastro_veiculos.enums.TipoVeiculo;
 import br.com.ecourbis.cadastro_veiculos.mappers.VeiculoDTOMapper;
 import br.com.ecourbis.cadastro_veiculos.models.Veiculo;
 import br.com.ecourbis.cadastro_veiculos.repositories.VeiculoRepositorio;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +30,9 @@ public class VeiculoService {
         this.veiculoDTOMapper = veiculoDTOMapper;
     }
 
-    public List<VeiculoDTO> listarVeiculosAtivos(){
-        return (veiculoRepositorio.findByStatus(TipoStatus.ATIVO)).stream()
+    public List<VeiculoDTO> listarVeiculosAtivos(int pagina, int itens){
+        System.out.println(Arrays.toString(TipoVeiculo.values()));
+        return (veiculoRepositorio.findByStatus(TipoStatus.ATIVO, PageRequest.of(pagina, itens))).stream()
                 .map(veiculoDTOMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -77,6 +81,13 @@ public class VeiculoService {
         return veiculoRepositorio.countByUnidade(TipoUnidade.LESTE);
     }
 
+    /*
+    *
+    *  Métodos para validação -> serão utilizados nos outros métodos
+    *
+    * */
+
+
     // para métodos update/delete -> o cliente já foi criado e possui um id
     public void veiculoExiste(Integer id){
         Optional<Veiculo> optionalVeiculo = veiculoRepositorio.findById(id);
@@ -90,5 +101,18 @@ public class VeiculoService {
             throw new EntityNotFoundException("Nenhum veículo encontrado para o ID fornecido.");
         }
     }
+
+    public void validarTipoVeiculo(String tipoVeiculo) {
+        if (!TipoVeiculo.isValid(tipoVeiculo)) {
+            throw new RuntimeException("Tipo de veículo inválido - " + tipoVeiculo);
+        }
+    }
+
+    public void validarUnidade(String unidade) {
+        if (!TipoUnidade.isValid(unidade)) {
+            throw new RuntimeException("Unidade inválida - " + unidade);
+        }
+    }
+
     
 }
