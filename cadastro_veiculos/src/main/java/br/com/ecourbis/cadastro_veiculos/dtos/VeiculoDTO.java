@@ -24,7 +24,7 @@ public class VeiculoDTO {
 
     // permite apenas a leitura do atributo
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long codVeiculo;
+    private Integer codVeiculo;
 
     @NotBlank(message = "A placa não pode estar em branco.")
     @Pattern(regexp = "[A-Z]{3}\\d{3}", message = "A placa deve seguir o formato AAA123.")

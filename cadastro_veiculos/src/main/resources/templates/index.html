@@ -12,6 +12,11 @@
 
     <!-- Tabela responsiva do Bootstrap -->
     <div class="table-responsive">
+        <div>
+            <p>Total de veículos ativos: <span th:text="${contagemVeiculos}">0</span></p>
+            <p>Total de veículos na região Sul: <span th:text="${contagemSul}">0</span></p>
+            <p>Total de veículos na região Leste: <span th:text="${contagemLeste}">0</span></p>
+        </div>
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -35,7 +40,7 @@
                 <td class="text-center align-middle" th:text="${veiculo.dtCadastro}"></td>
                 <td class="text-center align-middle">
                     <div class="btn-group">
-                        <a class="m-2 btn btn-primary" th:href="@{/editar/{id}(id=${veiculo.codVeiculo})}" id="editar" type="button" >Editar</a>
+                        <a class="m-2 btn btn-primary" th:href="@{/edicao/{id}(id=${veiculo.codVeiculo})}" id="editar" type="button" >Editar</a>
                         <a class="m-2 btn btn-danger" th:href="@{/deletar/{id}(id=${veiculo.codVeiculo})}" id="deletar" type="button" >Deletar</a>
                     </div>
                 </td>
@@ -58,12 +63,13 @@
 <!-- Script para confirmar a exclusão -->
 <script th:inline="javascript">
     $(document).ready(function() {
-        $('#deletar').click(function() {
-            if (confirm("Tem certeza que deseja excluir este veículo?")) {
-                window.location.href = document.getElementById("deletar").getAttribute("href");
+        $('#deletar').click(function(event) {
+            if (!confirm("Tem certeza que deseja excluir este veículo?")) {
+                event.preventDefault();
             }
         });
     });
 </script>
+
 </body>
 </html>

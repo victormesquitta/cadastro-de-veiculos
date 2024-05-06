@@ -57,6 +57,7 @@ public class VeiculoService {
     public void atualizarVeiculo(VeiculoDTO veiculoDTO, Integer id) {
         veiculoExiste(id);
         Veiculo veiculo = veiculoDTOMapper.toEntity(veiculoDTO, id);
+        veiculo.setStatus(TipoStatus.ATIVO);
         veiculoRepositorio.save(veiculo);
     }
 

@@ -1,5 +1,6 @@
 package br.com.ecourbis.cadastro_veiculos.exceptions;
 
+import br.com.ecourbis.cadastro_veiculos.dtos.VeiculoDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,11 +16,11 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalHandlerException {
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
-//        String mensagemErro = "Erro durante a execução: " + e.getMessage();
-//        return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
+        String mensagemErro = "Erro durante a execução: " + e.getMessage();
+        return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public String handleDataIntegratityException(DataIntegrityViolationException e, Model model) {
         String mensagemErro = "Erro de integridade de dados: ";
@@ -35,6 +36,8 @@ public class GlobalHandlerException {
             mensagemErro +=  e.getMessage();
         }
         model.addAttribute("errorMessage", mensagemErro);
+        VeiculoDTO veiculoDTO = new VeiculoDTO();
+        model.addAttribute("veiculoDTO", veiculoDTO);
         return "formulario";
     }
 
