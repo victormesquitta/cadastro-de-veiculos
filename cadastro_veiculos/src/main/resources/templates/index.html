@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Veículos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="mt-5 container">
+    <h1 class="my-4">Lista de Veículos</h1>
+
+    <!-- Tabela responsiva do Bootstrap -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th class="text-center">Placa</th>
+                <th class="text-center">Marca</th>
+                <th class="text-center">Modelo</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Unidade</th>
+                <th class="text-center">Data de Cadastro</th>
+                <th class="text-center">#</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Loop para exibir cada veículo -->
+            <tr class="text-center" th:each="veiculo : ${veiculosAtivos}">
+                <td class="text-center align-middle" th:text="${veiculo.placa}"></td>
+                <td class="text-center align-middle" th:text="${veiculo.marca}"></td>
+                <td class="text-center align-middle" th:text="${veiculo.modelo}"></td>
+                <td class="text-center align-middle" th:text="${veiculo.tipo}"></td>
+                <td class="text-center align-middle" th:text="${veiculo.unidade}"></td>
+                <td class="text-center align-middle" th:text="${veiculo.dtCadastro}"></td>
+                <td class="text-center align-middle">
+                    <div class="btn-group">
+                        <a class="m-2 btn btn-primary" th:href="@{/editar/{id}(id=${veiculo.codVeiculo})}" id="editar" type="button" >Editar</a>
+                        <a class="m-2 btn btn-danger" th:href="@{/deletar/{id}(id=${veiculo.codVeiculo})}" id="deletar" type="button" >Deletar</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Botão para adicionar novo veículo -->
+    <a class="btn btn-success" th:href="@{/formulario}">Adicionar Veículo</a>
+</div>
+
+<!-- Adicionando o Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script para confirmar a exclusão -->
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $('#deletar').click(function() {
+            if (confirm("Tem certeza que deseja excluir este veículo?")) {
+                window.location.href = document.getElementById("deletar").getAttribute("href");
+            }
+        });
+    });
+</script>
+</body>
+</html>

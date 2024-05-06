@@ -21,9 +21,8 @@ public class VeiculoController {
         this.veiculoService = veiculoService;
     }
 
-
     @GetMapping("/todos")
-    public ResponseEntity<Object> listarTodosVeiculos(){
+    public ResponseEntity<List<VeiculoDTO>> listarTodosVeiculos(){
         List<VeiculoDTO> veiculosDTO = veiculoService.listarTodosVeiculos();
         return ResponseEntity.ok(veiculosDTO);
     }
@@ -36,43 +35,53 @@ public class VeiculoController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<Object> obterVeiculoPeloID(@PathVariable Integer id){
+    public ResponseEntity<VeiculoDTO> obterVeiculoPeloID(@PathVariable Integer id){
         VeiculoDTO veiculoDTO = veiculoService.obterVeiculoPeloID(id);
         return ResponseEntity.ok(veiculoDTO);
     }
 
     @GetMapping("/contagem-ativos")
-    public ResponseEntity<Object> obterContagemAtivos(){
+    public ResponseEntity<Integer> obterContagemAtivos(){
         Integer contagemVeiculos = veiculoService.contaVeiculosAtivos();
         return ResponseEntity.ok(contagemVeiculos);
     }
 
     @GetMapping("/contagem-sul")
-    public ResponseEntity<Object> obterContagemSul(){
+    public ResponseEntity<Integer> obterContagemSul(){
         Integer contagemVeiculos = veiculoService.contaVeiculosSul();
         return ResponseEntity.ok(contagemVeiculos);
     }
 
     @GetMapping("/contagem-leste")
-    public ResponseEntity<Object> obterContagemLeste(){
+    public ResponseEntity<Integer> obterContagemLeste(){
         Integer contagemVeiculos = veiculoService.contaVeiculosLeste();
         return ResponseEntity.ok(contagemVeiculos);
     }
 
+    @GetMapping("/pesquisar")
+    public  ResponseEntity<List<VeiculoDTO>> pesquisarVeiculos(@RequestParam("pesquisa") String pesquisa,
+                                                              @RequestParam(defaultValue = "0") int pagina,
+                                                              @RequestParam(defaultValue = "5") int itens){
+        List<VeiculoDTO> veiculosDTO = veiculoService.pesquisarVeiculos(pesquisa, pagina, itens);
+        return ResponseEntity.ok(veiculosDTO);
+    }
+
+
     @PostMapping("/cadastrar-veiculo")
-    public ResponseEntity<Object> cadastrarVeiculo(@RequestBody @Valid VeiculoDTO veiculoDTO){
+    public ResponseEntity<String> cadastrarVeiculo(@RequestBody @Valid VeiculoDTO veiculoDTO){
         veiculoService.cadastrarVeiculo(veiculoDTO);
         return new ResponseEntity<>("Veículo cadastrado com sucesso.", HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarVeiculo(@PathVariable  Integer id, @RequestBody @Valid VeiculoDTO veiculoDTO ){
+    public ResponseEntity<String> atualizarVeiculo(@PathVariable Integer id,
+                                                   @RequestBody @Valid VeiculoDTO veiculoDTO ){
         veiculoService.atualizarVeiculo(veiculoDTO, id);
         return new ResponseEntity<>("Veículo atualizado com sucesso.", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public  ResponseEntity<Object> deletarVeiculo(@PathVariable Integer id){
+    public  ResponseEntity<String> deletarVeiculo(@PathVariable Integer id){
         veiculoService.deletarVeiculo(id);
         return new ResponseEntity<>("Veículo deletado com sucesso.", HttpStatus.OK);
     }

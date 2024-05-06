@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Veículo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="my-4">Formulário de Veículo</h1>
+    <!-- Exibir mensagem de erro, se houver -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Exibindo erros de validação -->
+    <div th:if="${errors}" class="alert alert-danger" role="alert">
+        <ul>
+            <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
+        </ul>
+    </div>
+
+    <form class="my-2" th:action="@{/cadastrar}" method="post" th:object="${veiculoDTO}">
+
+        <div class="form-group">
+            <label for="placa">Placa:</label>
+            <input type="text" class="form-control" id="placa" name="placa" th:field="*{placa}">
+        </div>
+        <div class="form-group">
+            <label for="marca">Marca:</label>
+            <input type="text" class="form-control" id="marca" name="marca" th:field="*{marca}">
+        </div>
+        <div class="form-group">
+            <label for="modelo">Modelo:</label>
+            <input type="text" class="form-control" id="modelo" name="modelo" th:field="*{modelo}">
+        </div>
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select class="form-control" id="tipo" name="tipo" th:field="*{tipo}">
+                <option th:each="tipo : ${T(br.com.ecourbis.cadastro_veiculos.enums.TipoVeiculo).values()}"
+                        th:value="${tipo}" th:text="${tipo}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="unidade">Unidade:</label>
+            <select class="form-control" id="unidade" name="unidade" th:field="*{unidade}">
+                <option th:each="unidade : ${T(br.com.ecourbis.cadastro_veiculos.enums.TipoUnidade).values()}"
+                        th:value="${unidade}" th:text="${unidade}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="renavam">Renavam:</label>
+            <input type="text" class="form-control" id="renavam" name="renavam" th:field="*{renavam}">
+        </div>
+        <!-- Adicione os outros campos da DTO aqui -->
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<!-- Adicionando o Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

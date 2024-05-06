@@ -6,6 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +21,7 @@ public class GlobalHandlerException {
 //        return new ResponseEntity<>(mensagemErro, HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<String> handleDataIntegratityException(DataIntegrityViolationException e) {
+    public String handleDataIntegratityException(DataIntegrityViolationException e, Model model) {
         String mensagemErro = "Erro de integridade de dados: ";
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -33,7 +34,8 @@ public class GlobalHandlerException {
         } else {
             mensagemErro +=  e.getMessage();
         }
-        return new ResponseEntity<>(mensagemErro, status);
+        model.addAttribute("errorMessage", mensagemErro);
+        return "formulario";
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -59,4 +61,5 @@ public class GlobalHandlerException {
         String mensagemErro = "Erro ao processar a requisição: " + e.getMessage().substring(e.getMessage().indexOf("problem: ")+9);
         return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
     }
+
 }

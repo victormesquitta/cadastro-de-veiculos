@@ -1,7 +1,7 @@
 use cadastroveiculos;
 
 INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
-VALUES (1, 'ABC-124', 'Ford', 'Fiesta', 'CARRETA', 'SUL', '34456789011', 'ATIVO', '2023-01-01');
+VALUES (1, 'ABC124', 'Ford', 'Fiesta', 'CARRETA', 'SUL', '34456789011', 'ATIVO', '2023-01-01');
 
 INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
 VALUES (2, 'ABC123', 'Ford', 'Fiesta', 'CCL', 'SUL', '12345678901', 'ATIVO', '2023-01-01');

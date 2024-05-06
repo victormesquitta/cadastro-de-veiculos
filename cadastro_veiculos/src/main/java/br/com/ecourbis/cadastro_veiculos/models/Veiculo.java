@@ -25,7 +25,7 @@ public class Veiculo {
     @Column(name="codveiculo")
     private Integer codVeiculo;
 
-    @Column(name="placa", nullable = false, unique = true)
+    @Column(name="placa", nullable = false, unique = true, length = 6)
     private String placa;
 
     @Column(name="marca", nullable = false)
@@ -42,7 +42,7 @@ public class Veiculo {
     @Column(name="unidade", nullable = false)
     private TipoUnidade unidade;
 
-    @Column(name="renavam", unique = true)
+    @Column(name="renavam", unique = true, length = 11)
     private String renavam;
 
     @Enumerated(EnumType.STRING)

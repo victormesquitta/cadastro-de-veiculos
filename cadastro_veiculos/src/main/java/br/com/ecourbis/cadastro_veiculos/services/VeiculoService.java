@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +30,6 @@ public class VeiculoService {
     }
 
     public List<VeiculoDTO> listarVeiculosAtivos(int pagina, int itens){
-        System.out.println(Arrays.toString(TipoVeiculo.values()));
         return (veiculoRepositorio.findByStatus(TipoStatus.ATIVO, PageRequest.of(pagina, itens))).stream()
                 .map(veiculoDTOMapper::toDTO)
                 .collect(Collectors.toList());
@@ -67,6 +65,21 @@ public class VeiculoService {
         Veiculo veiculo = veiculoDTOMapper.toEntity(veiculoDTO);
         veiculo.setStatus(TipoStatus.DESATIVADO);
         veiculoRepositorio.save(veiculo);
+    }
+
+//    public List<VeiculoDTO> teste(Integer id) {
+//        return (veiculoRepositorio.testeJPQL().stream()
+//                .map(veiculoDTOMapper::toDTO)
+//                .collect(Collectors.toList()));
+//    }
+
+    public List<VeiculoDTO> pesquisarVeiculos(String pesquisa, int pagina, int itens){
+        System.out.println((veiculoRepositorio.pesquisarVeiculos(TipoStatus.ATIVO, pesquisa, PageRequest.of(pagina, itens))).stream()
+                .map(veiculoDTOMapper::toDTO)
+                .collect(Collectors.toList()));
+        return (veiculoRepositorio.pesquisarVeiculos(TipoStatus.ATIVO, pesquisa, PageRequest.of(pagina, itens))).stream()
+                .map(veiculoDTOMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     public Integer contaVeiculosAtivos(){

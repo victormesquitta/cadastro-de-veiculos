@@ -9,5 +9,4 @@ public class CadastroVeiculosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CadastroVeiculosApplication.class, args);
 	}
-
 }
