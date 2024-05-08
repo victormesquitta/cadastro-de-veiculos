@@ -8,15 +8,35 @@
 </head>
 <body>
 <div class="mt-5 container">
-    <h1 class="my-4">Lista de Veículos</h1>
+    <h1 class="my-4">Cadastro de Veículos</h1>
 
     <!-- Tabela responsiva do Bootstrap -->
     <div class="table-responsive">
-        <div>
-            <p>Total de veículos ativos: <span th:text="${contagemVeiculos}">0</span></p>
-            <p>Total de veículos na região Sul: <span th:text="${contagemSul}">0</span></p>
-            <p>Total de veículos na região Leste: <span th:text="${contagemLeste}">0</span></p>
+        <div class="container mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Contagem de Veículos</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Total de veículos ativos: <span th:text="${contagemVeiculos}">0</span></li>
+                        <li class="list-group-item">Total de veículos na região Sul: <span th:text="${contagemSul}">0</span></li>
+                        <li class="list-group-item">Total de veículos na região Leste: <span th:text="${contagemLeste}">0</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
+        <form th:action="@{/}" method="get" class="d-flex align-items-center mb-2">
+            <div class="input-group">
+                <input type="text" name="pesquisa" class="form-control" placeholder="Digite a palavra-chave" th:value="${param.pesquisa}">
+                <button type="button" class="btn btn-outline-secondary" onclick="limparPesquisa()">Limpar</button>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -49,6 +69,27 @@
         </table>
     </div>
 
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous" th:href="@{'/?pagina=' + ${paginaAnterior}}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            </li>
+            <li class="page-item" th:each="pagina : ${#numbers.sequence(0, totalPaginas - 1)}">
+                <a class="page-link" th:href="@{'/?pagina=' + ${pagina}} " th:text="${pagina + 1}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next" th:href="@{'/?pagina=' + ${proximaPagina}}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
 
 
     <!-- Botão para adicionar novo veículo -->
@@ -62,6 +103,10 @@
 
 <!-- Script para confirmar a exclusão -->
 <script th:inline="javascript">
+    function limparPesquisa() {
+        document.getElementsByName("pesquisa")[0].value = "";
+        window.location.href = "/";
+    }
     $(document).ready(function() {
         $('#deletar').click(function(event) {
             if (!confirm("Tem certeza que deseja excluir este veículo?")) {

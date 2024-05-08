@@ -2,6 +2,7 @@ package br.com.ecourbis.cadastro_veiculos.viewcontrollers;
 
 import br.com.ecourbis.cadastro_veiculos.dtos.VeiculoDTO;
 import br.com.ecourbis.cadastro_veiculos.services.VeiculoService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,16 +23,45 @@ public class VeiculoViewController {
         this.veiculoService = veiculoService;
     }
 
-    @GetMapping()
-    public String listarVeiculos(Model model) {
-        List<VeiculoDTO> veiculosAtivos = veiculoService.listarVeiculosAtivos(0,5);
+    @GetMapping("/")
+    public String listarVeiculos(Model model,
+                                 @RequestParam(value = "pesquisa", defaultValue = "") String pesquisa,
+                                 @RequestParam(defaultValue = "0") int pagina,
+                                 @RequestParam(defaultValue = "5") int itens) {
+        System.out.println("pesquisa: "+ pesquisa);
         Integer contagemVeiculos = veiculoService.contaVeiculosAtivos();
-        Integer  contagemSul = veiculoService.contaVeiculosSul();
+        Integer contagemSul = veiculoService.contaVeiculosSul();
         Integer contagemLeste = veiculoService.contaVeiculosLeste();
+
         model.addAttribute("contagemVeiculos", contagemVeiculos);
         model.addAttribute("contagemSul", contagemSul);
         model.addAttribute("contagemLeste", contagemLeste);
+
+
+        List<VeiculoDTO> veiculosAtivos;
+
+        if (pesquisa.isEmpty()) {
+            veiculosAtivos = veiculoService.listarVeiculosAtivos(pagina, itens);
+            System.out.println("Size veiculosAtivos" + veiculosAtivos.size());
+        } else {
+            veiculosAtivos = veiculoService.pesquisarVeiculos(pesquisa, pagina, itens);
+            System.out.println("Size veiculosAtivos" + veiculosAtivos.size());
+        }
+
         model.addAttribute("veiculosAtivos", veiculosAtivos);
+
+        // Buscar o número total de registros
+        int totalRegistros = veiculosAtivos.size(); // Ou outra maneira de buscar o total de registros
+
+        // Calcular o número total de páginas
+        int totalPaginas = (int) Math.ceil((double) totalRegistros / itens);
+        model.addAttribute("totalPaginas", totalPaginas);
+        System.out.println("pagina: " + pagina);
+        int paginaAnterior = pagina > 0 ? pagina - 1 : 0;
+        int proximaPagina = pagina < totalPaginas - 1 ? pagina + 1 : totalPaginas - 1;
+        model.addAttribute("paginaAnterior", paginaAnterior);
+        model.addAttribute("proximaPagina", proximaPagina);
+
         return "index";
     }
 

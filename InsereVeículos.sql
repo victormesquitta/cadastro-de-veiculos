@@ -14,3 +14,18 @@ VALUES (4, 'GHI789', 'Volkswagen', 'Gol', 'CARRETA', 'CTL', '34567890123', 'DESA
 
 INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
 VALUES (5, 'JKL012', 'Toyota', 'Corolla', 'MUNCK', 'TSA', '45678901234', 'ATIVO', '2023-04-01');
+
+INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
+VALUES (6, 'MNO345', 'Chevrolet', 'Onix', 'LEVE', 'ETV', '56789012345', 'ATIVO', '2024-05-06');
+
+INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
+VALUES (7, 'PQR678', 'Renault', 'Duster', 'LEVE', 'CMT', '67890123456', 'DESATIVADO', '2024-05-06');
+
+INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
+VALUES (8, 'STU901', 'Volkswagen', 'Jetta', 'CARRETA', 'UTRSS', '78901234567', 'ATIVO', '2024-05-06');
+
+INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
+VALUES (9, 'VWX234', 'Toyota', 'Rav4', 'FURGAO', 'SUL', '89012345678', 'DESATIVADO', '2024-05-06');
+
+INSERT INTO t_veiculo (codVeiculo, placa, marca, modelo, tipo, unidade, renavam, status, dtCadastro)
+VALUES (10, 'YZA567', 'Ford', 'Ranger', 'CAVALO', 'LESTE', '90123456789', 'ATIVO', '2024-05-06');

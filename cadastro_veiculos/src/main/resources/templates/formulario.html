@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Veículo</title>
+    <title>Adicionar Veículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/formulario.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="my-4">Formulário de Veículo</h1>
+    <a th:href="@{/}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>
+
+    <h1 class="my-4">Adicionar Veículo</h1>
     <!-- Exibir mensagem de erro, se houver -->
     <div th:if="${errorMessage}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
@@ -25,15 +28,15 @@
 
         <div class="form-group">
             <label for="placa">Placa:</label>
-            <input type="text" class="form-control" id="placa" name="placa" th:field="*{placa}">
+            <input placeholder="AAA123" type="text" class="form-control custom-placeholder" id="placa" name="placa" th:field="*{placa}">
         </div>
         <div class="form-group">
             <label for="marca">Marca:</label>
-            <input type="text" class="form-control" id="marca" name="marca" th:field="*{marca}">
+            <input placeholder="Ford" type="text" class="form-control custom-placeholder" id="marca" name="marca" th:field="*{marca}">
         </div>
         <div class="form-group">
             <label for="modelo">Modelo:</label>
-            <input type="text" class="form-control" id="modelo" name="modelo" th:field="*{modelo}">
+            <input placeholder="Ka" type="text" class="form-control custom-placeholder" id="modelo" name="modelo" th:field="*{modelo}">
         </div>
         <div class="form-group">
             <label for="tipo">Tipo:</label>
@@ -51,7 +54,7 @@
         </div>
         <div class="form-group">
             <label for="renavam">Renavam:</label>
-            <input type="text" class="form-control" id="renavam" name="renavam" th:field="*{renavam}">
+            <input placeholder="12345678901" type="text" class="form-control custom-placeholder" id="renavam" name="renavam" th:field="*{renavam}">
         </div>
         <!-- Adicione os outros campos da DTO aqui -->
         <button type="submit" class="btn btn-primary">Enviar</button>

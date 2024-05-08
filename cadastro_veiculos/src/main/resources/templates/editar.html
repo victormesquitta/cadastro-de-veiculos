@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editando Veículo</title>
+    <title>Editar Veículo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/formulario.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="my-4">Formulário de Veículo</h1>
+    <a th:href="@{/}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>
+    <h1 class="my-4">Editar Veículo</h1>
     <!-- Exibir mensagem de erro, se houver -->
     <div th:if="${errorMessage}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
@@ -57,6 +59,7 @@
             <label for="dtCadastro">Data de Cadastro:</label>
             <input type="date" class="form-control" id="dtCadastro" name="dtCadastro" th:field="*{dtCadastro}" th:value="${veiculoDTO.dtCadastro}">
         </div>
+
         <!-- Adicione os outros campos da DTO aqui -->
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
