@@ -1,10 +1,12 @@
 package br.com.ecourbis.cadastro_veiculos.viewcontrollers;
 
 import br.com.ecourbis.cadastro_veiculos.dtos.VeiculoDTO;
+import br.com.ecourbis.cadastro_veiculos.models.Veiculo;
 import br.com.ecourbis.cadastro_veiculos.services.VeiculoService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,16 +44,16 @@ public class VeiculoViewController {
 
         if (pesquisa.isEmpty()) {
             veiculosAtivos = veiculoService.listarVeiculosAtivos(pagina, itens);
-            System.out.println("Size veiculosAtivos" + veiculosAtivos.size());
+            System.out.println("Size veiculosAtivos: " + veiculosAtivos.size());
         } else {
             veiculosAtivos = veiculoService.pesquisarVeiculos(pesquisa, pagina, itens);
-            System.out.println("Size veiculosAtivos" + veiculosAtivos.size());
+            System.out.println("Size veiculosAtivos: " + veiculosAtivos.size());
         }
 
         model.addAttribute("veiculosAtivos", veiculosAtivos);
 
         // Buscar o número total de registros
-        int totalRegistros = veiculosAtivos.size(); // Ou outra maneira de buscar o total de registros
+        int totalRegistros = veiculoService.contaVeiculosAtivos(); // Ou outra maneira de buscar o total de registros
 
         // Calcular o número total de páginas
         int totalPaginas = (int) Math.ceil((double) totalRegistros / itens);
