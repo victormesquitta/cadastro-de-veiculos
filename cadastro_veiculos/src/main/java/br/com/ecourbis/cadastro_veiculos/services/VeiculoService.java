@@ -91,11 +91,11 @@ public class VeiculoService {
     }
 
     public Integer contaVeiculosSul(){
-        return veiculoRepositorio.countByUnidade(TipoUnidade.SUL);
+        return veiculoRepositorio.countByUnidadeAndStatus(TipoUnidade.SUL, TipoStatus.ATIVO);
     }
 
     public Integer contaVeiculosLeste(){
-        return veiculoRepositorio.countByUnidade(TipoUnidade.LESTE);
+        return veiculoRepositorio.countByUnidadeAndStatus   (TipoUnidade.LESTE, TipoStatus.ATIVO);
     }
 
     /*

@@ -1,12 +1,9 @@
 package br.com.ecourbis.cadastro_veiculos.viewcontrollers;
 
 import br.com.ecourbis.cadastro_veiculos.dtos.VeiculoDTO;
-import br.com.ecourbis.cadastro_veiculos.models.Veiculo;
 import br.com.ecourbis.cadastro_veiculos.services.VeiculoService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
