@@ -47,6 +47,7 @@ public class VeiculoService {
         return veiculoOptional.map(veiculoDTOMapper::toDTO).orElse(null);
     }
 
+
     public void cadastrarVeiculo(VeiculoDTO veiculoDTO) {
         Veiculo veiculo = veiculoDTOMapper.toEntity(veiculoDTO);
         veiculo.setStatus(TipoStatus.ATIVO);

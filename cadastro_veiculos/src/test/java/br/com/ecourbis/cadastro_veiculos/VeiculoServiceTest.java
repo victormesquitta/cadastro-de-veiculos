@@ -3,7 +3,6 @@ package br.com.ecourbis.cadastro_veiculos;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import br.com.ecourbis.cadastro_veiculos.models.Veiculo;
 import br.com.ecourbis.cadastro_veiculos.services.VeiculoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
