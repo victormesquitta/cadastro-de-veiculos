@@ -48,4 +48,18 @@ public interface VeiculoRepositorio extends JpaRepository<Veiculo, Integer> {
             @Param("status") TipoStatus status,
             @Param("pesquisa") String pesquisa,
             Pageable pageable);
+
+    @Query("SELECT COUNT(v) FROM Veiculo v " +
+            "WHERE v.status = :status " +
+            "AND (" +
+            "UPPER(v.placa) LIKE CONCAT('%', UPPER(:pesquisa), '%') " +
+            "OR UPPER(v.marca) LIKE CONCAT('%', UPPER(:pesquisa), '%') " +
+            "OR UPPER(v.modelo) LIKE CONCAT('%', UPPER(:pesquisa), '%') " +
+            "OR UPPER(v.tipo) LIKE CONCAT('%', UPPER(:pesquisa), '%') " +
+            "OR UPPER(v.unidade) LIKE CONCAT('%', UPPER(:pesquisa), '%') " +
+            "OR UPPER(v.renavam) LIKE CONCAT('%', UPPER(:pesquisa), '%')" +
+            ")")
+    Integer contaVeiculosPesquisa(
+            @Param("status") TipoStatus status,
+            @Param("pesquisa") String pesquisa);
 }

@@ -41,19 +41,22 @@ public class VeiculoViewController {
 
 
         List<VeiculoDTO> veiculosAtivos;
+        int totalRegistros;
 
         if (pesquisa.isEmpty()) {
             veiculosAtivos = veiculoService.listarVeiculosAtivos(pagina, itens);
+            // Buscar o número total de registros
+            totalRegistros = veiculoService.contaVeiculosAtivos();
             System.out.println("Size veiculosAtivos: " + veiculosAtivos.size());
         } else {
             veiculosAtivos = veiculoService.pesquisarVeiculos(pesquisa, pagina, itens);
+            // Buscar o número total de registros
+            totalRegistros = veiculoService.contaVeiculosPesquisa(pesquisa);
             System.out.println("Size veiculosAtivos: " + veiculosAtivos.size());
         }
 
         model.addAttribute("veiculosAtivos", veiculosAtivos);
 
-        // Buscar o número total de registros
-        int totalRegistros = veiculoService.contaVeiculosAtivos(); // Ou outra maneira de buscar o total de registros
 
         // Calcular o número total de páginas
         int totalPaginas = (int) Math.ceil((double) totalRegistros / itens);

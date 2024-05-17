@@ -84,6 +84,8 @@ public class VeiculoService {
                 .collect(Collectors.toList());
     }
 
+    public Integer contaVeiculosPesquisa(String pesquisa){return veiculoRepositorio.contaVeiculosPesquisa(TipoStatus.ATIVO, pesquisa);}
+
     public Integer contaVeiculosAtivos(){
         return veiculoRepositorio.countByStatus(TipoStatus.ATIVO);
     }
